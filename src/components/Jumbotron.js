@@ -22,7 +22,7 @@ export default function Jumbotron(props) {
     <div className={classes.heroContent}>
       <Container maxWidth="sm">
         <Typography
-          component="h2"
+          component="h4"
           variant="h2"
           align="center"
           color="textPrimary"
