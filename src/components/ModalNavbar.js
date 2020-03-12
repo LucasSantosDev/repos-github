@@ -44,9 +44,7 @@ function ModalNavbar(props) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">
-        💓 MEUS REPOS FAVORITOS 💓
-      </DialogTitle>
+      <DialogTitle id="simple-dialog-title">💓 REPOS FAVORITOS 💓</DialogTitle>
       <List>
         {emails.map(email => (
           <ListItem
