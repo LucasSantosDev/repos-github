@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
   },
+  header: {
+    fontSize: '42px',
+  },
 }));
 
 export default function Jumbotron(props) {
@@ -22,6 +25,7 @@ export default function Jumbotron(props) {
     <div className={classes.heroContent}>
       <Container maxWidth="sm">
         <Typography
+          className={classes.header}
           component="h4"
           variant="h2"
           align="center"
