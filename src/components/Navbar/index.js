@@ -51,6 +51,7 @@ export default function Navbar() {
           >
             <img
               width="200px"
+              alt="Think So!"
               src="http://thinkso.com.br/application/views/images/big-thinkso.png"
             />
           </Typography>
