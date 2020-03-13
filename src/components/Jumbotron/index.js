@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ButtonChangeTheme from './ButtonChangeTheme';
+import ButtonChangeTheme from '../ButtonChangeTheme';
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
@@ -15,6 +15,13 @@ const useStyles = makeStyles(theme => ({
     fontSize: '42px',
   },
 }));
+
+/**
+ * Jumbotron Component
+ * @version 1.0
+ * @author Lucas Dev
+ * @description Jumbotron to navigation
+ */
 
 export default function Jumbotron(props) {
   const classes = useStyles();
@@ -51,8 +58,12 @@ Jumbotron.defaultProps = {
 
 // PropTypes
 Jumbotron.propTypes = {
+  /** Title of Jumbotron */
   title: PropTypes.string.isRequired,
+  /** Icon of Jumbotron */
   icon: PropTypes.any,
+  /** Content of Jumbotron */
   content: PropTypes.string.isRequired,
+  /** Buttons (Change theme) of Jumbotron */
   changeThemeButtons: PropTypes.bool,
 };

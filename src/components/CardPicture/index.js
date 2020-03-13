@@ -25,6 +25,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * CardPicture Component
+ * @version 1.0
+ * @author Lucas Dev
+ * @description CardPicture to navigation
+ */
+
 export default function CardPicture(props) {
   const handleAddFavorito = card => {
     toast.success(`😀 ${card.name} adicionado ao favoritos.`);

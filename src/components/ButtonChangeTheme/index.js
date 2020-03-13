@@ -9,6 +9,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * ButtonChangeTheme Component
+ * @version 1.0
+ * @author Lucas Dev
+ * @description ButtonChangeTheme to navigation
+ */
+
 export default function ButtonChangeTheme() {
   const classes = useStyles();
 

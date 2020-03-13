@@ -1,11 +1,10 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import GitHub from '@material-ui/icons/GitHub';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ModalNavbar from './ModalNavbar';
+import ModalNavbar from '../ModalNavbar';
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -29,6 +28,13 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
 }));
+
+/**
+ * Navbar Component
+ * @version 1.0
+ * @author Lucas Dev
+ * @description Navbar to navigation
+ */
 
 export default function Navbar() {
   const classes = useStyles();

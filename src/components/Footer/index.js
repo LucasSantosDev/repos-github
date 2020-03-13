@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Copyright from './Copyright';
+import Copyright from '../Copyright';
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -10,6 +10,13 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(6),
   },
 }));
+
+/**
+ * Footer Component
+ * @version 1.0
+ * @author Lucas Dev
+ * @description Footer to navigation
+ */
 
 export default function Footer() {
   const classes = useStyles();

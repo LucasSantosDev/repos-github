@@ -33,7 +33,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CardPicture(props) {
+/**
+ * DetailsCard Component
+ * @version 1.0
+ * @author Lucas Dev
+ * @description DetailsCard to navigation
+ */
+
+export default function DetailsCard(props) {
   const handleAddFavorito = card => {
     toast.success(`😀 ${card.name} adicionado ao favoritos.`);
   };
@@ -98,7 +105,7 @@ export default function CardPicture(props) {
 }
 
 // PropTypes
-CardPicture.propTypes = {
+DetailsCard.propTypes = {
   card: PropTypes.object.isRequired,
   repos: PropTypes.array.isRequired,
 };
