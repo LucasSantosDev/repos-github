@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Main() {
+export default function Repository() {
   const classes = useStyles();
 
   return (

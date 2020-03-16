@@ -1,14 +1,25 @@
-// theme.js
-export const lightTheme = {
-  body: '#EGEGEG',
-  text: '#363537',
-  toggleBorder: '#FFF',
-  gradient: 'linear-gradient(#39598A, #79D7ED)',
-};
+import { createMuiTheme } from '@material-ui/core/styles';
 
-export const darkTheme = {
-  body: '#3f51b5',
-  text: '#FAFAFA',
-  toggleBorder: '#6B8096',
-  gradient: 'linear-gradient(#091236, #1E215D)',
-};
+export const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+    background: {
+      paper: '#111',
+    },
+    colors: {
+      primary: '#111',
+    },
+  },
+});
+
+export const lightTheme = createMuiTheme({
+  palette: {
+    type: 'light',
+    background: {
+      paper: '#d8e8e8',
+    },
+    colors: {
+      primary: '#d8e8e8',
+    },
+  },
+});

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import GitHub from '@material-ui/icons/GitHub';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -10,6 +12,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Link from '@material-ui/core/Link';
 import { toast } from 'react-toastify';
 import { makeStyles } from '@material-ui/core/styles';
+
+import { dot3 } from '../../lib/utils';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -33,20 +37,21 @@ const useStyles = makeStyles(theme => ({
  */
 
 export default function CardPicture(props) {
-  const handleAddFavorito = card => {
-    toast.success(`😀 ${card.name} adicionado ao favoritos.`);
-  };
+  const [favorite, setFavorite] = useState('default');
 
-  const dot3 = (text, numberDot = 70) => {
-    if (!text) {
-      return 'Sem descrição';
+  const handleClick = card => {
+    // Removendo todos os toasts
+    toast.dismiss();
+
+    if (favorite === 'default') {
+      setFavorite('secondary');
+
+      toast.success(`😀 ${card.name} - Adicionado ao favoritos...`);
+    } else {
+      setFavorite('default');
+
+      toast.info(`😀 ${card.name} - Removendo dos favoritos...`);
     }
-
-    if (text.length < numberDot) {
-      return text;
-    }
-
-    return `${text.substring(0, 70)}...`;
   };
 
   const classes = useStyles();
@@ -68,18 +73,18 @@ export default function CardPicture(props) {
           <Typography>{dot3(card.description)}</Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
-            <Link color="inherit" href={`/repository/${card.id}`}>
-              Ver Repo
-            </Link>
-          </Button>
-          <Button
-            size="small"
-            color="secondary"
-            onClick={() => handleAddFavorito(card)}
+          <Link color="inherit" href={`/repository/${card.id}`}>
+            <IconButton title="Ver Detalhes">
+              <GitHub />
+            </IconButton>
+          </Link>
+          <IconButton
+            color={favorite}
+            onClick={() => handleClick(card)}
+            title="Adicionar aos Favoritos"
           >
-            Favorito 💓
-          </Button>
+            <FavoriteIcon />
+          </IconButton>
         </CardActions>
       </Card>
     </Grid>

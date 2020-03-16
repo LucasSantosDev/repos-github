@@ -44,7 +44,7 @@ export default function Main() {
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {cards.map(card => (
-              <CardPicture key={card} card={card} />
+              <CardPicture key={`${card.id}`} card={card} />
             ))}
           </Grid>
         </Container>

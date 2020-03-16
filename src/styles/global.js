@@ -8,14 +8,11 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   html, body, #root {
-    height: 100%;
+    min-height: 100%;
   }
 
   body {
     align-items: center;
-    background: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.text};
-    height: 100vh;
     transition: all 0.25s linear;
   }
 `;
