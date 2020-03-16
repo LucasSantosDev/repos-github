@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import GitHub from '@material-ui/icons/GitHub';
 
-import Navbar from '../../components/Navbar';
-import Jumbotron from '../../components/Jumbotron';
-import CardPicture from '../../components/CardPicture';
-import Footer from '../../components/Footer';
+import Navbar from '~/components/Navbar';
+import Jumbotron from '~/components/Jumbotron';
+import CardPicture from '~/components/CardPicture';
+import Footer from '~/components/Footer';
 
-import cards from './dataFake';
+import { list } from '~/services/api/users';
 
 const useStyles = makeStyles(theme => ({
   cardGrid: {
@@ -20,7 +20,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Main() {
+  const [cards, setCards] = useState([]);
+
   const classes = useStyles();
+
+  useEffect(() => {
+    (async () => {
+      const { data: users } = await list();
+
+      if (users) {
+        setCards(users);
+      }
+    })();
+  }, []);
 
   const contentJumbotron = `O projeto Request Repos foi criado com intuito de
   utilizar várias tecnologias, como: ReactJS, TypeScript, Netlify, CI/CD`;

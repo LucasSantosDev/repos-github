@@ -13,8 +13,6 @@ import Link from '@material-ui/core/Link';
 import { toast } from 'react-toastify';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { dot3 } from '../../lib/utils';
-
 const useStyles = makeStyles(theme => ({
   card: {
     height: '100%',
@@ -46,11 +44,11 @@ export default function CardPicture(props) {
     if (favorite === 'default') {
       setFavorite('secondary');
 
-      toast.success(`😀 ${card.name} - Adicionado ao favoritos...`);
+      toast.success(`😀 ${card.login} - Adicionado ao favoritos...`);
     } else {
       setFavorite('default');
 
-      toast.info(`😀 ${card.name} - Removendo dos favoritos...`);
+      toast.info(`😀 ${card.login} - Removendo dos favoritos...`);
     }
   };
 
@@ -63,17 +61,16 @@ export default function CardPicture(props) {
       <Card className={classes.card}>
         <CardMedia
           className={classes.cardMedia}
-          image={card.img}
-          title={card.name}
+          image={card.avatar_url}
+          title={card.login}
         />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h2">
-            {card.name}
+            {card.login}
           </Typography>
-          <Typography>{dot3(card.description)}</Typography>
         </CardContent>
         <CardActions>
-          <Link color="inherit" href={`/repository/${card.id}`}>
+          <Link color="inherit" href={`/repository/${card.login}`}>
             <IconButton title="Ver Detalhes">
               <GitHub />
             </IconButton>

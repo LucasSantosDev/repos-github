@@ -182,14 +182,14 @@ class DetailsCard extends Component {
           <Card className={classes.card}>
             <CardMedia
               className={classes.cardMedia}
-              image={card.img}
+              image={card.avatar_url}
               title={card.name}
             />
             <CardContent className={classes.cardContent}>
               <Typography gutterBottom variant="h5" component="h2">
                 {card.name}
               </Typography>
-              <Typography>{card.description}</Typography>
+              {/* <Typography>{card.description}</Typography> */}
             </CardContent>
             <CardActions>
               <IconButton
