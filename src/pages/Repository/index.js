@@ -19,8 +19,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Repository(props) {
+  const date = new Date();
+  const startDate = date.getTime();
+
   const [card, setCard] = useState({});
   const [repos, setRepos] = useState([]);
+  const [start, setStart] = useState(startDate);
+  const [end, setEnd] = useState(
+    new Date(startDate).setDate(date.getDate() + 6)
+  );
 
   const classes = useStyles();
 
@@ -36,6 +43,8 @@ export default function Repository(props) {
         const { data: repos } = await api.get(user.repos_url);
 
         if (repos) {
+          // Fazer tratativa de range de data
+
           setRepos(repos);
         }
       }

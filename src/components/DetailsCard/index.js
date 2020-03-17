@@ -271,11 +271,10 @@ class DetailsCard extends Component {
                 onBlur={this.close}
               >
                 <FormControl className={classes.margin}>
-                  <InputLabel htmlFor="input-with-icon-adornment">
-                    Data dos Repositórios
-                  </InputLabel>
                   <Input
+                    placeholder="Data dos Repositórios"
                     value={`${start} - ${end}`}
+                    variant="outlined"
                     id="input-with-icon-adornment"
                     startAdornment={
                       <InputAdornment position="start">
