@@ -8,8 +8,8 @@ import Navbar from '~/components/Navbar';
 import DetailsCard from '~/components/DetailsCard';
 import Footer from '~/components/Footer';
 
-import { card, repos } from './dataFake';
 import { show } from '~/services/api/users';
+import api from '~/services/api/config';
 
 const useStyles = makeStyles(theme => ({
   cardGrid: {
@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Repository(props) {
-  const [card, setCard] = useState([]);
+  const [card, setCard] = useState({});
+  const [repos, setRepos] = useState([]);
 
   const classes = useStyles();
 
@@ -27,12 +28,16 @@ export default function Repository(props) {
 
   useEffect(() => {
     (async () => {
-      const { data: user } = await show(match.name);
-
-      console.log(user);
+      const { data: user } = await show(match.params.name);
 
       if (user) {
         setCard(user);
+
+        const { data: repos } = await api.get(user.repos_url);
+
+        if (repos) {
+          setRepos(repos);
+        }
       }
     })();
   }, []);

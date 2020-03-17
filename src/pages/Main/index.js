@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import GitHub from '@material-ui/icons/GitHub';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Navbar from '~/components/Navbar';
 import Jumbotron from '~/components/Jumbotron';
@@ -17,20 +18,28 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
   },
+  loadingContent: {
+    margin: 'auto',
+  },
 }));
 
 export default function Main() {
   const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const classes = useStyles();
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
+
       const { data: users } = await list();
 
       if (users) {
         setCards(users);
       }
+
+      setLoading(false);
     })();
   }, []);
 
@@ -55,9 +64,13 @@ export default function Main() {
 
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {cards.map(card => (
-              <CardPicture key={`${card.id}`} card={card} />
-            ))}
+            {loading ? (
+              <div className={classes.loadingContent}>
+                <CircularProgress size={60} color="primary" />
+              </div>
+            ) : (
+              cards.map(card => <CardPicture key={`${card.id}`} card={card} />)
+            )}
           </Grid>
         </Container>
       </main>

@@ -18,12 +18,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import DateRange from '@material-ui/icons/DateRange';
+import GitHub from '@material-ui/icons/GitHub';
 import '@lls/react-light-calendar/dist/index.css';
-// import Link from '@material-ui/core/Link';
+import Link from '@material-ui/core/Link';
 import { toast } from 'react-toastify';
 import { withStyles } from '@material-ui/core/styles';
 
-import { dot3 } from '../../lib/utils';
+import { dot3 } from '~/lib/utils';
 
 const DAY_LABELS = [
   'Segunda',
@@ -50,9 +51,15 @@ const MONTH_LABELS = [
 ];
 
 const styles = theme => ({
-  card: {
-    minHeight: '700px',
-    height: '100%',
+  cardLeft: {
+    minHeight: '500px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  cardRight: {
+    minHeight: '500px',
+    height: '500px',
+    overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -61,6 +68,9 @@ const styles = theme => ({
   },
   cardContent: {
     flexGrow: 1,
+    '& small': {
+      fontSize: 12,
+    },
   },
   cardContentRepo: {
     flexGrow: '1',
@@ -90,9 +100,42 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing(1),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
   },
   loadingContent: {
     margin: 'auto',
+  },
+  titleRepo: {
+    '& a': {
+      display: 'flex',
+      alignItems: 'center',
+      color: theme.palette.type === 'dark' ? '#dadff1' : '#313546',
+      cursor: 'pointer',
+      '& svg': {
+        marginRight: '10px',
+      },
+    },
+    '& a:hover': {
+      textDecoration: 'none',
+    },
+  },
+  numberRepos: {
+    paddingLeft: 10,
+    fontSize: 12,
+  },
+  login: {
+    color: '#4159b5',
+  },
+  descriptionRepo: {
+    '& small': {
+      padding: 4,
+      margin: '0 4px 0 0',
+      background: 'transparent',
+      color: theme.palette.type === 'dark' ? '#fff' : '#444',
+      border: '1px dashed #999',
+      borderRadius: 10,
+    },
   },
 });
 
@@ -161,7 +204,12 @@ class DetailsCard extends Component {
   }
 
   componentDidMount() {
-    this.setState({ ready: true });
+    // Aplicando um efeito de loading
+    this.setState({ loading: true });
+
+    setTimeout(() => {
+      this.setState({ ready: true, loading: false });
+    }, 3000);
   }
 
   render() {
@@ -179,7 +227,7 @@ class DetailsCard extends Component {
     return (
       <>
         <Grid item xs={12} sm={12} md={4}>
-          <Card className={classes.card}>
+          <Card className={classes.cardLeft}>
             <CardMedia
               className={classes.cardMedia}
               image={card.avatar_url}
@@ -188,10 +236,21 @@ class DetailsCard extends Component {
             <CardContent className={classes.cardContent}>
               <Typography gutterBottom variant="h5" component="h2">
                 {card.name}
+                <p className={classes.login}>{card.login}</p>
+                <p>
+                  <small>{card.location}</small>
+                </p>
               </Typography>
               {/* <Typography>{card.description}</Typography> */}
             </CardContent>
             <CardActions>
+              <IconButton
+                color={'default'}
+                onClick={() => window.open(card.html_url, '_target=blank')}
+                title="Visitar Perfil"
+              >
+                <GitHub />
+              </IconButton>
               <IconButton
                 color={favorite}
                 onClick={() => this.handleAddFavorito(card)}
@@ -203,7 +262,7 @@ class DetailsCard extends Component {
           </Card>
         </Grid>
         <Grid item xs={12} sm={12} md={8}>
-          <Card className={classes.card}>
+          <Card className={classes.cardRight}>
             <div className={classes.rangeDate}>
               <div
                 className={classes.inputDate}
@@ -213,7 +272,7 @@ class DetailsCard extends Component {
               >
                 <FormControl className={classes.margin}>
                   <InputLabel htmlFor="input-with-icon-adornment">
-                    Filtro de Data dos Repositórios
+                    Data dos Repositórios
                   </InputLabel>
                   <Input
                     value={`${start} - ${end}`}
@@ -247,28 +306,51 @@ class DetailsCard extends Component {
                   !loading ? (
                     <Send />
                   ) : (
-                    <CircularProgress size={20} color="#FFF" />
+                    <CircularProgress size={20} color="secondary" />
                   )
                 }
               >
                 {!loading ? `Buscar` : `Buscando`}
               </Button>
             </div>
+            {!loading && repos && (
+              <Typography
+                className={classes.numberRepos}
+                variant="h6"
+                component="h6"
+              >
+                <small>{repos.length} repositórios</small>
+              </Typography>
+            )}
             {!loading ? (
               repos &&
               repos.map(r => (
                 <Fade key={r.id} in={ready}>
                   <CardContent className={classes.cardContentRepo}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {r.name}
+                    <Typography
+                      className={classes.titleRepo}
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                    >
+                      <Link href={r.html_url} target="_blank">
+                        <GitHub /> {r.name}
+                      </Link>
                     </Typography>
-                    <Typography>{dot3(r.description, 200)}</Typography>
+                    <Typography className={classes.descriptionRepo}>
+                      <p>{dot3(r.description, 200)}</p>
+                      <p>
+                        <small>Language: {r.language}</small>
+                        <small>Star: {r.stargazers_count}</small>
+                        <small>Forks: {r.forks}</small>
+                      </p>
+                    </Typography>
                   </CardContent>
                 </Fade>
               ))
             ) : (
               <div className={classes.loadingContent}>
-                <CircularProgress size={60} color="#FFF" />
+                <CircularProgress size={60} color="primary" />
               </div>
             )}
           </Card>
