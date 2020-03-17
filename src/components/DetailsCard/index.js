@@ -241,7 +241,7 @@ class DetailsCard extends Component {
                   <small>{card.location}</small>
                 </p>
               </Typography>
-              {/* <Typography>{card.description}</Typography> */}
+              <Typography>{card.bio}</Typography>
             </CardContent>
             <CardActions>
               <IconButton
